@@ -4,4 +4,7 @@ venv/
 .env
 # data
 data/
+# Processed data
 *.npz
+# Trained model artifacts
+*.pkl
