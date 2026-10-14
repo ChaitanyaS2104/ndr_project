@@ -20,16 +20,27 @@ with open(file_path, "r") as f:
             
             if(event_type == "flow"):
 
-                src_ip = event.get("src_ip")
-                dest_ip = event.get("dest_ip")
-                dest_port = event.get("dest_port")
+                srcip = event.get("src_ip")
+                dstip = event.get("dest_ip")
                 
+                sport = event.get("src_port")
+                dsport = event.get("dest_port")
+                
+                
+                proto = event.get("proto")
+
+                service = event.get("app_proto")
+
                 flow = event.get("flow")
-                pkts_toserver = flow.get("pkts_toserver")
-                pkts_toclient = flow.get("pkts_toclient")
-                bytes_toserver = flow.get("bytes_toserver")
-                bytes_toclient = flow.get("bytes_toclient")
-                age = flow.get("age")
+                
+                state = flow.get("state")
+
+                dur = flow.get("age")
+                sbytes = flow.get("bytes_toserver")
+                dbytes = flow.get("bytes_toclient")
+                
+                spkts = flow.get("pkts_toserver")
+                dpkts = flow.get("pkts_toclient")
 
                 print(f"Packet {event} {pkts_toclient} {pkts_toserver} from {src_ip} to {dest_ip} \n")
             
