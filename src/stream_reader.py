@@ -1,5 +1,7 @@
 import json
 import time
+from models.network_log import NetworkLog
+from models.alert_log import AlertLog
 
 file_path = "/var/log/suricata/eve.json"
 
@@ -19,37 +21,14 @@ with open(file_path, "r") as f:
             event_type = event.get("event_type")
             
             if(event_type == "flow"):
+                parsed_flow = NetworkLog.model_validate(event)
 
-                srcip = event.get("src_ip")
-                dstip = event.get("dest_ip")
-                
-                sport = event.get("src_port")
-                dsport = event.get("dest_port")
-                
-                
-                proto = event.get("proto")
-
-                service = event.get("app_proto")
-
-                flow = event.get("flow")
-                
-                state = flow.get("state")
-
-                dur = flow.get("age")
-                sbytes = flow.get("bytes_toserver")
-                dbytes = flow.get("bytes_toclient")
-                
-                spkts = flow.get("pkts_toserver")
-                dpkts = flow.get("pkts_toclient")
-
-                print(f"Packet {event} {pkts_toclient} {pkts_toserver} from {src_ip} to {dest_ip} \n")
+                print(f"Parsed Log {parsed_flow}\n")
             
             if(event_type == "alert"):
-                src_ip = event.get("src_ip")
-                dest_ip = event.get("dest_ip")
+                parsed_alert = AlertLog.model_validate(event)
                 
-                signature = event.get("alert.signature")
-                severity = event.get("alert.severity")
+                print(f"Parsed Log {parsed_alert}\n")
 
             
 
