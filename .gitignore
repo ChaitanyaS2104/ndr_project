@@ -2,3 +2,5 @@
 venv/
 # API keys 
 .env
+# data
+data/
